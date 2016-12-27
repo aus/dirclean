@@ -8,8 +8,10 @@ def scantree(path):
     for entry in scandir(path):
         if entry.is_dir(follow_symlinks=False):
             yield from scantree(entry.path)
-        else:
+        elif entry.is_file(follow_symlinks=False):
             yield entry
+        else:
+            continue # ignore if non-file
 
 def delete(files, delete=False):
     """Delete all files in array of DirEntry objects if delete=True, else just print paths"""
